@@ -10,8 +10,12 @@
         <!--设置占位符的分隔符-->
         <property name="org.apache.ibatis.parsing.PropertyParser.default-value-separator" value="?:"/>
     </properties>
+    <settings>
+        <setting name="defaultScriptingLanguage" value="myLanguage"/>
+    </settings>
     <typeAliases>
         <typeAlias type="com.netease.kaola.study.entity.User01" alias="user01"/>
+        <typeAlias type="com.netease.kaola.study.util.LanguageDriverTest" alias="myLanguage"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">

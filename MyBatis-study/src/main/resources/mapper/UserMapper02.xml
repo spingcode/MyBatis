@@ -46,4 +46,32 @@
         WHERE
         id=#{id}
     </select>
+
+
+    <select id="getPartUser" resultMap="BaseResultMap" parameterType="list">
+        SELECT <include refid="Base_Column_List"/>
+        FROM USER
+        WHERE id
+        IN
+        <if test="list !=null and list.size>0">
+            <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+        </if>
+        <if test="list==null or list.size==0">
+            (0)
+        </if>
+    </select>
+    
+    
+    <select id="selectUserLike" resultMap="BaseResultMap">
+        <!--<bind name="pattern" value="'%' + _parameter.getTitle() + '%'" />-->
+        <bind name="pattern" value="'%' + pa + '%'" />
+        SELECT * FROM user
+        WHERE name LIKE #{pattern}
+    </select>
+
+    <select id="selectUser" lang="myLanguage" resultMap="BaseResultMap">
+        SELECT * FROM user
+    </select>
 </mapper>
