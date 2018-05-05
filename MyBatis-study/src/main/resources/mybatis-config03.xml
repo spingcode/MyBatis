@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties>
+        <property name="driver-class-name" value="com.mysql.jdbc.Driver"/>
+        <property name="datasource.url" value="jdbc:mysql://localhost:3306/mybatis"/>
+        <property name="datasource.password" value="root"/>
+        <!--启动占位符-->
+        <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/>
+        <!--设置占位符的分隔符-->
+        <property name="org.apache.ibatis.parsing.PropertyParser.default-value-separator" value="?:"/>
+    </properties>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver-class-name}"/>
+                <property name="url" value="${datasource.url}"/>
+                <!--<property name="username" value="${datasource.username:root}"/>-->
+                <property name="username" value="${datasource.username?:root}"/>
+                <property name="password" value="${datasource.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mapper/UserMapper.xml"></mapper>
+    </mappers>
+</configuration>
