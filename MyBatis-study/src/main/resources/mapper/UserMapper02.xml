@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.netease.kaola.study.mapper.UserMapper01">
+
+    <resultMap id="BaseResultMap" type="com.netease.kaola.study.entity.User01">
+        <id  property="id" column="id"/>
+        <result property="name01" column="name"/>
+        <result property="age01" column="age"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name,age
+    </sql>
+    <sql id="userColumns"> ${alias}.id,${alias}.name,${alias}.age </sql>
+    <select id="getUserById" parameterType="int" resultType="user01">
+        SELECT
+        id,age as age01,name AS  name01
+        from USER
+        WHERE
+        id=#{id}
+    </select>
+    <select id="getUserById01" parameterType="int" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        from USER
+        WHERE
+        id=#{id}
+    </select>
+    <select id="getAllUser" resultMap="BaseResultMap" flushCache="true" fetchSize="3">
+        SELECT <include refid="Base_Column_List"/>
+        from USER
+    </select>
+    <insert id="addUser" parameterType="user01" useGeneratedKeys="true" keyProperty="id">
+        INSERT into User(name,age)
+        VALUES(#{name01},#{age01});
+    </insert>
+    <select id="getAllUser01" resultMap="BaseResultMap">
+        SELECT <include refid="userColumns">
+                  <property name="alias" value="user"/>
+                </include>
+        FROM USER
+    </select>
+    <select id="getUser" resultType="map">
+        SELECT <include refid="Base_Column_List"/>
+        FROM USER
+        WHERE
+        id=#{id}
+    </select>
+</mapper>
